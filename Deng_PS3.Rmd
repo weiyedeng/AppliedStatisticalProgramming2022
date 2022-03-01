@@ -98,8 +98,8 @@ validate_door <- function(chosen_door) {
 my_door1 <- choose_a_door(4) ## Work
 my_door2 <- choose_a_door(2) ## Work
 my_door3 <- choose_a_door(2.1) ## Work
-validate_door(my_door1) ## Not Work
-validate_door(my_door2) ## Not Work
-my_door3 <- validate_door(2.1) ## Not Work
+validate_door(my_door1) ## Not work because of being out of range
+validate_door(my_door2) ## Work
+my_door3 <- validate_door(2.1) ## Not because of not being an integer
 
 ```
