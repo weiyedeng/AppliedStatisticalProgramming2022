@@ -1,0 +1,77 @@
+---
+title: "Applied Statistical Programming - Spring 2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\begin{center}
+{\Large{\textbf{Problem Set 3}}} \\
+\vspace{4 bp}
+Due Wednesday, March 16, 10:00 AM (Before Class) \\
+\end{center}
+
+\section*{Instructions}
+\begin{enumerate}
+  \item The following questions should each be answered within an Rmarkdown file. Be sure to provide many comments in your code blocks to facilitate grading. Undocumented code will not be graded.
+  \item Work on git. Continue to work in the repository you forked from \url{https://github.com/johnsontr/AppliedStatisticalProgramming2022} and add your code for Problem Set 4. Commit and push frequently. Use meaningful commit messages because these will affect your grade.
+  \item You may work in teams, but each student should develop their own Rmarkdown file. To be clear, there should be no copy and paste. Each keystroke in the assignment should be your own.
+  \item For students new to programming, this may take a while. Get started.
+\end{enumerate}
+
+\section*{\texttt{tidyverse}}
+
+Your task in this problem set is to combine two datasets in order to observe how many endorsements each candidate received using only \texttt{dplyr} functions. Use the same Presidential primary polls that were used for the in class worksheets on February 28 and March 2.
+
+```{r eval=FALSE}
+# Change eval=FALSE in the code block. Install packages as appropriate.
+#install.packages("fivethirtyeight")
+library(fivethirtyeight)
+library(tidyverse)
+# URL to the data that you've used.
+url <- 'https://jmontgomery.github.io/PDS/Datasets/president_primary_polls_feb2020.csv'
+polls <- read_csv(url)
+Endorsements <- endorsements_2020 # from the fiverthirtyeight package
+```
+
+First, create two new objects \texttt{polls} and \texttt{Endorsements}. Then complete the following.
+\begin{itemize}
+  \item Change the \texttt{Endorsements} variable name endorsee to \texttt{candidate\_name}.
+  \item Change the \texttt{Endorsements} dataframe into a \texttt{tibble} object.
+  \item Filter the \texttt{poll} variable to only include the following 6 candidates: Amy Klobuchar, Bernard Sanders,Elizabeth Warren, Joseph R. Biden Jr., Michael Bloomberg, Pete Buttigieg \textbf{and} subset the dataset to the following five variables: \texttt{candidate\_name, sample\_size, start\_date, party, pct}
+  \item Compare the candidate names in the two datasets and find instances where the a candidates name is spelled differently i.e. Bernard vs. Bernie. Using only \texttt{dplyr} functions, make these the same across datasets. 
+  \item Now combine the two datasets by candidate name using \texttt{dplyr} (there will only be five candidates after joining).
+  \item Create a variable which indicates the number of endorsements for each of the five candidates using \texttt{dplyr}.
+  \item Plot the number of endorsement each of the 5 candidates have using \texttt{ggplot()}. Save your plot as an object \texttt{p}.
+  \item Rerun the previous line as follows: \texttt{p + theme\_dark()}. Notice how you can still customize your plot without rerunning the plot with new options.
+  \item Now, using the knowledge from the last step change the label of the X and Y axes to be more informative, add a title. Save the plot in your forked repository.
+\end{itemize}
+
+
+\section*{Text-as-Data with \texttt{tidyverse}}
+
+For this question you will be analyzing Tweets from President Trump for various characteristics. Load in the following packages and data:
+
+```{r eval=FALSE}
+# Change eval=FALSE in the code block. Install packages as appropriate.
+library(tidyverse)
+#install.packages('tm')
+library(tm) 
+#install.packages('lubridate')
+library(lubridate)
+#install.packages('wordcloud')
+library(wordcloud)
+trump_tweets_url <- 'https://politicaldatascience.com/PDS/Datasets/trump_tweets.csv'
+tweets <- read_csv(trump_tweets_url)
+```
+
+\begin{itemize}
+  \item First separate the \texttt{created\_at} variable into two new variables where the date and the time are in separate columns. After you do that, then report the range of dates that is in this dataset.
+  \item Using \texttt{dplyr} subset the data to only include original tweets (remove retweents) and show the text of the President's \textbf{top 5} most popular and most retweeted tweets. (Hint: The \texttt{match} function can help you find the index once you identify the largest values.) 
+  \item Create a \textit{corpus} of the tweet content and put this into the object \texttt{Corpus} using the \texttt{tm} (text mining) package. (Hint: Do the assigned readings.)
+  \item Remove extraneous whitespace, remove numbers and punctuation, convert everything to lower case and remove 'stop words' that have little substantive meaning (the, a, it).
+  \item Now create a \texttt{wordcloud} to visualize the top 50 words the President uses in his tweets. Use only words that occur at least three times. Display the plot with words in random order and use 50 random colors. Save the plot into your forked repository.\item Create a \textit{document term matrix} called \texttt{DTM} that includes the argument \texttt{ control = list(weighting = weightTfIdf)}
+  \item Finally, report the 50 words with the the highest tf.idf scores using a lower frequency bound of .8.
+\end{itemize}
