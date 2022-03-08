@@ -1,14 +1,15 @@
 ---
 title: "Applied Statistical Programming - Spring 2022"
+author: "Rex Deng"
 output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, tidy=TRUE)
 ```
 
 \begin{center}
-{\Large{\textbf{Problem Set 3}}} \\
+{\Large{\textbf{Problem Set 4}}} \\
 \vspace{4 bp}
 Due Wednesday, March 16, 10:00 AM (Before Class) \\
 \end{center}
@@ -25,15 +26,17 @@ Due Wednesday, March 16, 10:00 AM (Before Class) \\
 
 Your task in this problem set is to combine two datasets in order to observe how many endorsements each candidate received using only \texttt{dplyr} functions. Use the same Presidential primary polls that were used for the in class worksheets on February 28 and March 2.
 
-```{r eval=FALSE}
+```{r}
 # Change eval=FALSE in the code block. Install packages as appropriate.
 #install.packages("fivethirtyeight")
+rm(list=ls())
 library(fivethirtyeight)
 library(tidyverse)
 # URL to the data that you've used.
-url <- 'https://jmontgomery.github.io/PDS/Datasets/president_primary_polls_feb2020.csv'
-polls <- read_csv(url)
+polls <- read.csv("/Users/rexdeng/Dropbox/mine/academics_career/WashU/Classes/202122Spring-Stat programming Jacob/PS/ASP2022_PS/president_primary_polls_feb2020.csv", na.strings = "")
 Endorsements <- endorsements_2020 # from the fiverthirtyeight package
+
+`%notin%` <- Negate(`%in%`)
 ```
 
 First, create two new objects \texttt{polls} and \texttt{Endorsements}. Then complete the following.
@@ -48,6 +51,59 @@ First, create two new objects \texttt{polls} and \texttt{Endorsements}. Then com
   \item Rerun the previous line as follows: \texttt{p + theme\_dark()}. Notice how you can still customize your plot without rerunning the plot with new options.
   \item Now, using the knowledge from the last step change the label of the X and Y axes to be more informative, add a title. Save the plot in your forked repository.
 \end{itemize}
+
+```{r}
+#0 Reset the data frame when running this chunk
+Endorsements <- endorsements_2020 
+
+#1.1 Rename
+Endorsements <- Endorsements %>%
+  rename(candidate_name = endorsee)
+
+#1.2 as.tibble
+Endorsements <- as_tibble(Endorsements)
+
+#1.3 filter and select
+polls <- polls %>%
+  filter(candidate_name %in% c("Amy Klobuchar", "Bernard Sanders","Elizabeth Warren", 
+                               "Joseph R. Biden Jr.", "Michael Bloomberg", "Pete Buttigieg")) %>% 
+  dplyr::select(candidate_name, sample_size, start_date, party, pct)
+
+#1.4 Make names the same
+Endorsements <- Endorsements %>%
+  mutate(candidate_name = ifelse(candidate_name == "Joe Biden", "Joseph R. Biden Jr.",
+                                 ifelse(candidate_name == "Bernie Sanders", "Bernard Sanders", candidate_name)))
+
+## check which candidate names in polls are still not in Endorsements
+unique(polls$candidate_name)[unique(polls$candidate_name) %notin% unique(Endorsements$candidate_name)] ### Make sense as there is no record in polls
+
+#1.5 Join
+polls_Endorse_joined <- left_join(polls, Endorsements, by = "candidate_name")
+
+#1.6 The number of endorsements for each of the five candidates
+## The joined dataset is not as useful as the original endorsement dataset as the joined one contains duplication of endorsers due to multiple matches 
+Endorsements_sum <- Endorsements %>%
+  filter(candidate_name %in% c("Amy Klobuchar", "Bernard Sanders","Elizabeth Warren", 
+                               "Joseph R. Biden Jr.", "Michael Bloomberg", "Pete Buttigieg")) %>%
+  group_by(candidate_name) %>%
+  summarise(n_endorsements = sum(!is.na(endorser)))
+
+#1.7 ggplot
+p <- Endorsements_sum %>%
+  ggplot() +
+  geom_bar(aes(x = candidate_name, y=n_endorsements), stat = "identity")
+
+#1.8, 1.9 add a theme and labs and so on
+p <- p + 
+  labs(title = "Number of Endorsements by Selected Democratic Candidates", 
+       x = "Candidate Name",
+       y = "Number of Endorsements") +
+  theme_dark() 
+
+p
+
+ggsave("Q1.png", width = 10)
+```
 
 
 \section*{Text-as-Data with \texttt{tidyverse}}
