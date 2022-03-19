@@ -113,7 +113,7 @@ ggsave("Q1.png", width = 10)
 
 For this question you will be analyzing Tweets from President Trump for various characteristics. Load in the following packages and data:
 
-```{r eval=FALSE}
+```{r}
 # Change eval=FALSE in the code block. Install packages as appropriate.
 library(tidyverse)
 library(tm) 
@@ -132,7 +132,7 @@ trump_tweets_url <- 'https://politicaldatascience.com/PDS/Datasets/trump_tweets.
   \item Finally, report the 50 words with the the highest tf.idf scores using a lower frequency bound of .8.
 \end{itemize}
 
-```{r}
+```{r, warning=F}
 tweets <- read_csv(trump_tweets_url)
 
 # 2.1 Separate date and time
@@ -163,7 +163,11 @@ Corpus <- tm_map(Corpus, addspace, "-")
 removepattern <- content_transformer(function(x, pattern) {
   return(gsub(pattern, "", x))
   })
+
+## Remove urls
 Corpus <- tm_map(Corpus, removepattern, "?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)")
+
+## Remove quotes
 Corpus <- tm_map(Corpus, removepattern, "‘")
 Corpus <- tm_map(Corpus, removepattern, "’")
 
@@ -172,6 +176,8 @@ Corpus <- tm_map(Corpus, stripWhitespace)
 Corpus <- tm_map(Corpus, removePunctuation)
 Corpus <- tm_map(Corpus, removeNumbers)
 Corpus <- tm_map(Corpus, removeWords, stopwords("english"))
+
+## Change all words to lower cases
 Corpus <- tm_map(Corpus,content_transformer(tolower))
 
 writeLines(head(strwrap(Corpus[[1]]), 10)) ## Check the tweets again
@@ -186,5 +192,6 @@ DTM <- DocumentTermMatrix(Corpus, control = list(weighting = weightTfIdf))
 df_DTM <- tidy(DTM)
 df_DTM_top50 <- df_DTM %>%
   slice_max(count, n=50)
+df_DTM_top50
 ```
 
