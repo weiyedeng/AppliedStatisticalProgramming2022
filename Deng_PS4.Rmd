@@ -119,7 +119,8 @@ library(tidyverse)
 library(tm) 
 library(lubridate)
 library(wordcloud)
-trump_tweets_url <- 'https://politicaldatascience.com/PDS/Datasets/trump_tweets.csv'
+library(knitr)
+library(kableExtra)
 ```
 
 \begin{itemize}
@@ -133,6 +134,7 @@ trump_tweets_url <- 'https://politicaldatascience.com/PDS/Datasets/trump_tweets.
 \end{itemize}
 
 ```{r, warning=F}
+trump_tweets_url <- 'https://politicaldatascience.com/PDS/Datasets/trump_tweets.csv'
 tweets <- read_csv(trump_tweets_url)
 
 # 2.1 Separate date and time
@@ -143,12 +145,20 @@ tweets$date <- as.Date(tweets$date, format="%m/%d/%Y")
 range(tweets$date)
 
 # 2.2
-top5_retweet_count <- tweets %>% 
+## Get the most retweeted tweets
+## Not sure if most popular == most retweeted here though, but shouls use a similar syntax of codes to get those
+top5_retweeted <- tweets %>% 
   filter(is_retweet == F) %>% 
   slice_max(retweet_count, n=5)
 
+top5_retweeted$text
+
 #2.3 Corpus 
-Corpus <- VCorpus(VectorSource(tweets$text))
+most_retweeted <- tweets %>%
+  filter(is_retweet == F) %>% 
+  slice_max(retweet_count, n=5000)
+
+Corpus <- VCorpus(VectorSource(most_retweeted$text))
 writeLines(head(strwrap(Corpus[[1]]), 10)) ## Check the tweets
 
 #2.4 Remove
@@ -184,14 +194,28 @@ writeLines(head(strwrap(Corpus[[1]]), 10)) ## Check the tweets again
 
 #2.5 wordcloud
 pal = brewer.pal(9,"BuGn")
-wc <- wordcloud(Corpus, min.freq = 3, random.order = T, random.color =T, max.words = 50, colors = pal)
-wc 
+wordcloud(Corpus, min.freq = 3, random.order = T, random.color =T, max.words = 50, colors = pal)
 
 #2.6 dtm
-DTM <- DocumentTermMatrix(Corpus, control = list(weighting = weightTfIdf))
-df_DTM <- tidy(DTM)
-df_DTM_top50 <- df_DTM %>%
-  slice_max(count, n=50)
-df_DTM_top50
+## term-frequency dfm
+dtm_tf <- DocumentTermMatrix(Corpus)
+
+## tfidf weighted dtm
+dtm_tfidf <- DocumentTermMatrix(Corpus, control = list(weighting = weightTfIdf))
+
+## Convert tf dfm to a data frame
+dtm_tf_df <- tidy(dtm_tf)
+
+## Get the tf.idf scores for each term
+dtm_tfidf_df <- bind_tf_idf(dtm_tf_df, term = term, document = document, n = count)
+
+df_DTM_top50 <- dtm_tfidf_df %>%
+  group_by(term) %>%
+  filter(tf_idf == max(tf_idf)) %>%
+  ungroup() %>%
+  slice_max(tf_idf, n=50)
+
+kable(df_DTM_top50, digits = 3, align = 'c', booktabs = T) %>%
+  kable_styling(position = "center")
 ```
 
