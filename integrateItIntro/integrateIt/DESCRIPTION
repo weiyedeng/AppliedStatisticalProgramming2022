@@ -1,0 +1,19 @@
+Package: integrateIt
+Title: integrateIt
+Version: 0.1
+Authors@R: 
+Author: Rex Deng
+Maintainer: weiye.deng@wustl.edu <weiye.deng@wustl.edu>
+Description: Estimate integration by using Trapezoidal or Simpson's rule
+Depends:
+    R (>= 3.0.0)
+License: FALSE
+Suggests:
+    devtools
+Collate:
+    'integrateIt.R'
+    'integrate_Class.R'
+    'show_Simpson.R'
+    'show_Trapezoid.R'
+RoxygenNote: 7.1.2
+Encoding: UTF-8
