@@ -2,14 +2,14 @@
 % Please edit documentation in R/integrateIt.R
 \name{integrateIt}
 \alias{integrateIt}
-\title{An integral approximation object}
+\title{Integral approximation}
 \usage{
-integrateIt(x, y, ends, Rule, ...)
+integrateIt(x, fun, ends, Rule)
 }
 \arguments{
-\item{x}{A numeric vector.}
+\item{x}{A numeric vector that serves as the input for approximation.}
 
-\item{y}{A numeric vector of evaluated values (`y[i] = f(x[i])`), with the same length as \code{x}.}
+\item{fun}{A function to be integrated.}
 
 \item{ends}{A numeric vector of length 2, indicating the starting and ending value for integration.}
 
@@ -32,14 +32,13 @@ fx <- function(x) {
 return(x^3 + x^2 + 1)
 }
 x <- seq(0,3,0.1)
-y <- fx(x)
 ends <- c(0,3)
-a <- integrateIt(x=x,y=y,ends=ends,Rule="Trapezoid")
+a <- integrateIt(x=x,fun=fx,ends=ends,Rule="Trapezoid")
 integrate(fx,0,3) ## Compared with the result calculated by integrate()
-print(a[[1]])
+show(a[[1]])
 }
 \seealso{
-print.Trapezoid, print.Simpson
+tolTest
 }
 \author{
 Rex W. Deng <\email{weiye.deng@wustl.edu}>

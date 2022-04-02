@@ -13,11 +13,10 @@
 #' return(x^3 + x^2 + 1)
 #' }
 #' x <- seq(0,3,0.1)
-#' y <- fx(x)
 #' ends <- c(0,3)
-#' a <- integrateIt(x=x,y=y,ends=ends,Rule="Trapezoid")
+#' a <- integrateIt(x=x,fun=fx,ends=ends,Rule="Trapezoid")
 #' integrate(fx,0,3) ## Compared with the result calculated by integrate()
-#' print(a[[1]])
+#' show(a[[1]])
 #' @seealso integrateIt
 #' @include show_Trapezoid.R
 

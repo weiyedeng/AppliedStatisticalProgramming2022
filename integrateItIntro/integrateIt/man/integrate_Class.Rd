@@ -14,10 +14,11 @@ Object of class \code{Trapezoid} or \code{Simpson} as created by the \code{integ
 \details{
 An object of the class `Trapezoid` or `Simpson` has the following slots:
 \itemize{
-\item \code{x} A vector of input values
-\item \code{y} A vector of evaluated values, where `y[i] = f(x[i])`.
+\item \code{x} A vector of input values.
+\item \code{fun} A function to be integrated.
 \item \code{ends} A vector that contains the starting and ending values.
-\item \code{Rule} Either "Trapezoid" or "Simpson"
+\item \code{Rule} Either "Trapezoid" or "Simpson".
+\item \code{integrated_value} The output of the approximation method. 
 }
 }
 \author{

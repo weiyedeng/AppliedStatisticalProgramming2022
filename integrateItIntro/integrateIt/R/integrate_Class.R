@@ -5,10 +5,11 @@
 #' 
 #' An object of the class `Trapezoid` or `Simpson` has the following slots:
 #' \itemize{
-#' \item \code{x} A vector of input values
-#' \item \code{y} A vector of evaluated values, where `y[i] = f(x[i])`.
+#' \item \code{x} A vector of input values.
+#' \item \code{fun} A function to be integrated.
 #' \item \code{ends} A vector that contains the starting and ending values.
-#' \item \code{Rule} Either "Trapezoid" or "Simpson"
+#' \item \code{Rule} Either "Trapezoid" or "Simpson".
+#' \item \code{integrated_value} The output of the approximation method. 
 #' }
 #'
 #' @author Rex W. Deng: \email{weiye.deng@@wustl.edu}
@@ -19,14 +20,14 @@
 setClass(Class="Trapezoid",
          representation = representation(
            x = "numeric",
-           y = "numeric",
+           fun = "function",
            ends = "numeric",
            Rule = "character",
            integrated_value = "numeric"
          ),
          prototype = prototype(
            x = numeric(),
-           y = numeric(),
+           fun = function(x) {return(x)},
            ends = numeric(),
            Rule = character(),
            integrated_value = numeric()
@@ -36,15 +37,15 @@ setClass(Class="Trapezoid",
 setClass(Class="Simpson",
          representation = representation(
            x = "numeric",
-           y = "numeric",
+           fun = "function",
            ends = "numeric",
            Rule = "character",
            integrated_value = "numeric"
          ),
          prototype = prototype(
            x = numeric(),
-           y = numeric(),
-           ends =numeric(),
+           fun = function(x) {return(x)},
+           ends = numeric(),
            Rule = character(),
            integrated_value = numeric()
          )
@@ -54,19 +55,20 @@ setValidity("Trapezoid", function(object){
   ## test for x
   x_classtest <- is.numeric(object@x)
   if (!x_classtest) {stop("x must be numeric vector.")}
-  x_lentest <- length(x) >= 3
+  x_lentest <- length(object@x) >= 3
   if (!x_classtest) {stop("The length of x cannot be smaller than 3.")}
   
   
   ## test for y
-  y_classtest <- is.numeric(object@x)
+  y <- object@fun(object@x)
+  y_classtest <- is.numeric(y)
   if (!y_classtest) {stop("y must be numeric vector.")}
   y_lentest <- length(y) >= 3
   if (!x_classtest) {stop("The length of y cannot be smaller than 3.")}
   
   
   ## test for x and y
-  xy_eqlentest <- length(object@x) == length(object@y)
+  xy_eqlentest <- length(object@x) == length(y)
   if (!xy_eqlentest) {stop("The lengths of x and y must be equal.")}
   
   
@@ -96,19 +98,20 @@ setValidity("Simpson", function(object){
   ## test for x
   x_classtest <- is.numeric(object@x)
   if (!x_classtest) {stop("x must be numeric vector.")}
-  x_lentest <- length(x) >= 3
+  x_lentest <- length(object@x) >= 3
   if (!x_classtest) {stop("The length of x cannot be smaller than 3.")}
   
   
   ## test for y
-  y_classtest <- is.numeric(object@x)
+  y <- object@fun(object@x)
+  y_classtest <- is.numeric(y)
   if (!y_classtest) {stop("y must be numeric vector.")}
   y_lentest <- length(y) >= 3
   if (!x_classtest) {stop("The length of y cannot be smaller than 3.")}
   
   
   ## test for x and y
-  xy_eqlentest <- length(object@x) == length(object@y)
+  xy_eqlentest <- length(object@x) == length(y)
   if (!xy_eqlentest) {stop("The lengths of x and y must be equal.")}
   
   

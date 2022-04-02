@@ -22,11 +22,14 @@ fx <- function(x) {
   return(x^3 + x^2 + 1)
 }
 x <- seq(0,3,0.1)
-y <- fx(x)
 ends <- c(0,3)
-a <- integrateIt(x=x,y=y,ends=ends,Rule="Trapezoid")
-b <- integrateIt(x=x,y=y,ends=ends,Rule="Simpson")
+a <- integrateIt(x=x,fun=fx,ends=ends,Rule="Trapezoid")
+b <- integrateIt(x=x,fun=fx,ends=ends,Rule="Simpson")
 integrate(fx,0,3) ## Compared with the result calculated by integrate()
+
+a
+b
+
 show(a[[1]])
 show(b[[1]])
 show("a")

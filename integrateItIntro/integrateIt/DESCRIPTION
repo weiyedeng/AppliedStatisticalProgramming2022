@@ -15,5 +15,6 @@ Collate:
     'integrate_Class.R'
     'show_Simpson.R'
     'show_Trapezoid.R'
+    'tolTest.R'
 RoxygenNote: 7.1.2
 Encoding: UTF-8

@@ -1,9 +1,9 @@
-#' An integral approximation object 
+#' Integral approximation
 #'
 #' Apply the trapezoidal or Simpson's rule to approximate integration
 #'
-#' @param x A numeric vector.
-#' @param y A numeric vector of evaluated values (`y[i] = f(x[i])`), with the same length as \code{x}.
+#' @param x A numeric vector that serves as the input for approximation.
+#' @param fun A function to be integrated.
 #' @param ends A numeric vector of length 2, indicating the starting and ending value for integration. 
 #' @param Rule A character string. Either `Trapezoid` or `Simpson` is allowed.
 #'
@@ -18,29 +18,29 @@
 #' return(x^3 + x^2 + 1)
 #' }
 #' x <- seq(0,3,0.1)
-#' y <- fx(x)
 #' ends <- c(0,3)
-#' a <- integrateIt(x=x,y=y,ends=ends,Rule="Trapezoid")
+#' a <- integrateIt(x=x,fun=fx,ends=ends,Rule="Trapezoid")
 #' integrate(fx,0,3) ## Compared with the result calculated by integrate()
-#' print(a[[1]])
-#' @seealso print.Trapezoid, print.Simpson
+#' show(a[[1]])
+#' @seealso tolTest
 #' @rdname integrateIt
 #' @export
 setGeneric(name="integrateIt",
-           def=function(x, y, ends, Rule, ...)
+           def=function(x, fun, ends, Rule)
            {standardGeneric("integrateIt")}
 )
 
 #' @export
 setMethod(f="integrateIt",
-          definition=function(x, y, ends, Rule, ...){
+          definition=function(x, fun, ends, Rule=c("Trapezoid","Simpson")){
+            y <- fun(x)
             if (Rule == "Trapezoid") {
               n <- length(x) - 1
               h <-(ends[2] - ends[1]) / n
               int_T <- h / 2 * (y[1] + sum(2*y[2:n]) + y[n+1])
-              Integrated <- new("Trapezoid", x=x, y=y, ends=ends, Rule="Trapezoid", integrated_value=int_T)
+              Integrated <- new("Trapezoid", x=x, fun=fun, ends=ends, Rule="Trapezoid", integrated_value=int_T)
               return(list(Integrated = Integrated, 
-                          input = list(x=x,y=y), 
+                          input = list(x=x,fun=fun), 
                           output = int_T))
             }
             
@@ -53,9 +53,9 @@ setMethod(f="integrateIt",
                 int_S <- h / 3 * (y[1] + 4*y[2] + y[3])
               }
               
-              Integrated <- new("Simpson", x=x, y=y, ends=ends, Rule="Simpson", integrated_value=int_S)
+              Integrated <- new("Simpson", x=x, fun=fun, ends=ends, Rule="Simpson", integrated_value=int_S)
               return(list(Integrated = Integrated, 
-                          input = list(x=x,y=y), 
+                          input = list(x=x,fun=fun), 
                           output = int_S))
             }
             
