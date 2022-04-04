@@ -9,8 +9,8 @@
 #'
 #' @return A list with the elements
 #'  \item{Integrated}{An object of class `Trapezoid` or class `Simpson`}
-#'  \item{input}{x and y} 
-#'  \item{output}{The result of approximation}
+#'  \item{input}{x and fun} 
+#'  \item{output}{The result of the approximation}
 #' @author Rex W. Deng <\email{weiye.deng@@wustl.edu}>
 #' @note Approximation of integration
 #' @examples

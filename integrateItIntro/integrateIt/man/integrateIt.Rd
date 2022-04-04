@@ -18,8 +18,8 @@ integrateIt(x, fun, ends, Rule)
 \value{
 A list with the elements
  \item{Integrated}{An object of class `Trapezoid` or class `Simpson`}
- \item{input}{x and y} 
- \item{output}{The result of approximation}
+ \item{input}{x and fun} 
+ \item{output}{The result of the approximation}
 }
 \description{
 Apply the trapezoidal or Simpson's rule to approximate integration

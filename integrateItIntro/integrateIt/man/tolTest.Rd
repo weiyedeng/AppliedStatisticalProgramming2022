@@ -18,19 +18,19 @@ tolTest(
 
 \item{ends}{A numeric vector of length 2, indicating the starting and ending value for integration.}
 
-\item{tolerance}{A positive number that indicates to what extent the difference between the correct answer and approximation is allowed}
+\item{tolerance}{A positive number that indicates to what extent the difference between the correct answer and approximation is allowed. The default is 0.001.}
 
 \item{Rule}{A character string. Either `Trapezoid` or `Simpson` is allowed.}
 
-\item{start}{The number of intervals it should start with}
+\item{start}{The number of intervals (with equal length) it should start with. The default is 2.}
 
-\item{correct}{The correct answer for the integral}
+\item{correct}{The correct answer for the integral. The default is calculated by applying `fun` and `ends` to `integrate()`.}
 }
 \value{
 A list with the elements
- \item{input}{All the specified inputs}
- \item{n}{The number of intervals required to reach the precision defined by `tolerance`} 
- \item{abs_error}{The absolute error of the estimate}
+ \item{input}{All the specified inputs.}
+ \item{n}{The number of intervals required to reach the precision defined by `tolerance`.} 
+ \item{abs_error}{The absolute error of the estimate.}
 }
 \description{
 tolTest takes in a function and increase the number of intervals n until the answer it provides

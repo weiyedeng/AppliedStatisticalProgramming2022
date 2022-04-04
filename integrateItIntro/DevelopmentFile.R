@@ -15,6 +15,8 @@ document(current.code)
 
 ## Let's look at a function
 ?integrateIt
+?tolTest
+
 
 
 ## Let's try it out
@@ -23,14 +25,15 @@ fx <- function(x) {
 }
 x <- seq(0,3,0.1)
 ends <- c(0,3)
-a <- integrateIt(x=x,fun=fx,ends=ends,Rule="Trapezoid")
-b <- integrateIt(x=x,fun=fx,ends=ends,Rule="Simpson")
+
+
+Tr <- integrateIt(x=x,fun=fx,ends=ends,Rule="Trapezoid")
+Si <- integrateIt(x=x,fun=fx,ends=ends,Rule="Simpson")
 integrate(fx,0,3) ## Compared with the result calculated by integrate()
 
-a
-b
+Tr
+Si
 
-show(a[[1]])
-show(b[[1]])
-show("a")
+show(Tr[[1]])
+show(Si[[1]])
 

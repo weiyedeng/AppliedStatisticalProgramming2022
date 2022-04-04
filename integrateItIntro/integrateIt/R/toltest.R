@@ -5,15 +5,15 @@
 #'
 #' @param fun A function to be integrated.
 #' @param ends A numeric vector of length 2, indicating the starting and ending value for integration. 
-#' @param tolerance A positive number that indicates to what extent the difference between the correct answer and approximation is allowed
+#' @param tolerance A positive number that indicates to what extent the difference between the correct answer and approximation is allowed. The default is 0.001.
 #' @param Rule A character string. Either `Trapezoid` or `Simpson` is allowed.
-#' @param start The number of intervals it should start with
-#' @param correct The correct answer for the integral
+#' @param start The number of intervals (with equal length) it should start with. The default is 2.
+#' @param correct The correct answer for the integral. The default is calculated by applying `fun` and `ends` to `integrate()`.
 #'
 #' @return A list with the elements
-#'  \item{input}{All the specified inputs}
-#'  \item{n}{The number of intervals required to reach the precision defined by `tolerance`} 
-#'  \item{abs_error}{The absolute error of the estimate}
+#'  \item{input}{All the specified inputs.}
+#'  \item{n}{The number of intervals required to reach the precision defined by `tolerance`.} 
+#'  \item{abs_error}{The absolute error of the estimate.}
 #' @author Rex W. Deng <\email{weiye.deng@@wustl.edu}>
 #' @note Test the Preciseness Required for an Approximation Method
 #' @examples
@@ -37,14 +37,15 @@ setMethod(f="tolTest",
           definition=function(fun, ends, tolerance=0.001, 
                               Rule=c("Trapezoid","Simpson"), start=2, 
                               correct=integrate(fun, ends[1], ends[2])$value) {
-            ## initialize
+            ## set original values
             n <- start
-            x <- seq(ends[1], ends[2], length.out = n + 1)
-            approx_output <- integrateIt(x=x, fun=fun, ends=ends, Rule=Rule)$output
-            abs_error <- abs(approx_output - correct)
+            x <- seq(ends[1], ends[2], length.out = n + 1) ### x is defined by the number of intervals with equal length
+            approx_output <- integrateIt(x=x, fun=fun, ends=ends, Rule=Rule)$output ### use the integrateIt function to get approximation results
+            abs_error <- abs(approx_output - correct) ### Calculate absolute errors
             
+            ## increase the number of intervals and redo the appximation until abs_error < tolerance
             while (abs_error >= tolerance) {
-              n = n + 1
+              n = n + 1 
               x <- seq(ends[1], ends[2], length.out = n + 1)
               approx_output <- integrateIt(x=x, fun=fun, ends=ends, Rule=Rule)$output
               abs_error <- abs(approx_output - correct)
