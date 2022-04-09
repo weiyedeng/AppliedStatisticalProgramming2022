@@ -32,7 +32,7 @@ y <- sample(x=1:10, size=20, replace=TRUE)
 estimatePois(y, lambda = 2, SEtype = "bootstrap")
 }
 \seealso{
-\link[PoisMLE]{logLik}, \link[PoisMLE]{mle}, \link[PoisMLE]{standardError}
+\code{\link[PoisMLE]{logLik}}, \code{\link[PoisMLE]{mle}}, \code{\link[PoisMLE]{standardError}}
 }
 \author{
 Rex W. Deng <\email{weiye.deng@wustl.edu}>

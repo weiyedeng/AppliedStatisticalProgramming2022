@@ -17,10 +17,10 @@ An object of the class `PoisMLE` has the following slots:
 \item \code{SEtype} The method used to calculate the standard error.
 }
 
-The\code{\link[PoisMLE]{estimatePois}} function calculates several statistics 
+The \code{\link[PoisMLE]{estimatePois}} function calculates several statistics 
 related to Poisson distribution based on a vector of observed data, including the log likelihood, 
 MLE estimate, and its associated standard error. The output is an Object of class \code{PoisMLE}.
-One can use the \code{plot()} function to produce a simple visualization of the MLE estimate with 95% confidence interval.
+One can use the \code{plot()} function to produce a simple visualization of the MLE estimate with 95\% confidence interval.
 }
 \seealso{
 \code{\link[PoisMLE]{logLik}}, \code{\link[PoisMLE]{mle}}, \code{\link[PoisMLE]{standardError}}, \code{\link[PoisMLE]{estimatePois}}

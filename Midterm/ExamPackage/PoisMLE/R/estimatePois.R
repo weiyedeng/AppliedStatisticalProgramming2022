@@ -15,7 +15,7 @@
 #' \item{SEtype}{The method used to calculate the standard error.}
 #' 
 #' @author Rex W. Deng <\email{weiye.deng@@wustl.edu}>
-#' @seealso \link[PoisMLE]{logLik}, \link[PoisMLE]{mle}, \link[PoisMLE]{standardError}
+#' @seealso \code{\link[PoisMLE]{logLik}}, \code{\link[PoisMLE]{mle}}, \code{\link[PoisMLE]{standardError}}
 #' @examples
 #' set.seed(123)
 #' y <- sample(x=1:10, size=20, replace=TRUE)

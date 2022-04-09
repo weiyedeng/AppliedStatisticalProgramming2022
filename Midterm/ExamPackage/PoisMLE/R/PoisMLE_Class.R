@@ -11,12 +11,13 @@
 #' \item \code{SE} The standard error for the MLE.
 #' \item \code{SEtype} The method used to calculate the standard error.
 #' }
-#'
-#' @author Rex W. Deng: \email{weiye.deng@@wustl.edu}
-#' @details The\code{\link[PoisMLE]{estimatePois}} function calculates several statistics 
+#' 
+#' The \code{\link[PoisMLE]{estimatePois}} function calculates several statistics 
 #' related to Poisson distribution based on a vector of observed data, including the log likelihood, 
 #' MLE estimate, and its associated standard error. The output is an Object of class \code{PoisMLE}.
-#' One can use the \code{plot()} function to produce a simple visualization of the MLE estimate with 95% confidence interval. 
+#' One can use the \code{plot()} function to produce a simple visualization of the MLE estimate with 95\% confidence interval. 
+#'
+#' @author Rex W. Deng: \email{weiye.deng@@wustl.edu}
 #' @seealso \code{\link[PoisMLE]{logLik}}, \code{\link[PoisMLE]{mle}}, \code{\link[PoisMLE]{standardError}}, \code{\link[PoisMLE]{estimatePois}}
 #' @rdname PoisMLE_Class
 #' @include PoisMLE_Class.R
@@ -87,7 +88,7 @@ setMethod("plot", signature=c(x="PoisMLE", y="missing"),
             MLE <- x@MLE
             UPB <- x@MLE + 1.96*x@SE
             LWB <- x@MLE - 1.96*x@SE
-            plot(MLE, xlab = "MLE Estimate", main = "MLE estimate with 95% CI",cex=2)
+            plot(MLE, xlab = "", ylab = "MLE Estimate", main = "MLE estimate with 95% CI", cex=2, xaxt='n')
             arrows(x0=1, y0=LWB, x1=1, y1=UPB, code=3, angle=90, length=0.1, col="blue", lwd=2)
           }
 ) 
