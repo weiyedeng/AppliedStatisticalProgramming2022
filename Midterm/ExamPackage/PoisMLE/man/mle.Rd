@@ -13,7 +13,7 @@ mle(y)
 A numeric value indicating the MLE estimator.
 }
 \description{
-Calculate the MLE estimator of Poisson distribution
+Calculate the MLE estimator of Poisson distribution based on observation data.
 }
 \examples{
 set.seed(123)
@@ -21,7 +21,7 @@ y <- sample(x=1:10, size=20, replace=TRUE)
 mle(y)
 }
 \seealso{
-logLik, standardError, estimatePois
+\code{\link[PoisMLE]{logLik}}, \code{\link[PoisMLE]{standardError}}, \code{\link[PoisMLE]{estimatePois}}
 }
 \author{
 Rex W. Deng <\email{weiye.deng@wustl.edu}>

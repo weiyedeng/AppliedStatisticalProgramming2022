@@ -1,6 +1,6 @@
 #' Define PoisMLE (S4) Class
 #' 
-#' Object of class \code{PoisMLE} created by the \code{estimatePois} functions
+#' An Object of class \code{PoisMLE} can be created by the \code{estimatePois()} function
 #'
 #' 
 #' An object of the class `PoisMLE` has the following slots:
@@ -13,9 +13,15 @@
 #' }
 #'
 #' @author Rex W. Deng: \email{weiye.deng@@wustl.edu}
+#' @details The\code{\link[PoisMLE]{estimatePois}} function calculates several statistics 
+#' related to Poisson distribution based on a vector of observed data, including the log likelihood, 
+#' MLE estimate, and its associated standard error. The output is an Object of class \code{PoisMLE}.
+#' One can use the \code{plot()} function to produce a simple visualization of the MLE estimate with 95% confidence interval. 
+#' @seealso \code{\link[PoisMLE]{logLik}}, \code{\link[PoisMLE]{mle}}, \code{\link[PoisMLE]{standardError}}, \code{\link[PoisMLE]{estimatePois}}
 #' @rdname PoisMLE_Class
 #' @include PoisMLE_Class.R
 #' @import methods
+#' @importFrom graphics arrows
 #' @export
 setClass(Class="PoisMLE",
          representation = representation(
@@ -68,11 +74,22 @@ setValidity("PoisMLE", function(object){
 }
 )
 
-
 setMethod("initialize", "PoisMLE", 
           function(.Object, ...){
             value=callNextMethod()
             return(value)
           }
 ) 
+
+
+setMethod("plot", signature=c(x="PoisMLE", y="missing"), 
+          function(x, y, ...){
+            MLE <- x@MLE
+            UPB <- x@MLE + 1.96*x@SE
+            LWB <- x@MLE - 1.96*x@SE
+            plot(MLE, xlab = "MLE Estimate", main = "MLE estimate with 95% CI",cex=2)
+            arrows(x0=1, y0=LWB, x1=1, y1=UPB, code=3, angle=90, length=0.1, col="blue", lwd=2)
+          }
+) 
+
 

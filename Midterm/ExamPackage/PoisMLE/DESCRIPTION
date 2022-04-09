@@ -12,12 +12,14 @@ Depends:
     R (>= 3.0.0)
 Imports:
     methods,
-    stats
+    stats,
+    graphics
 License: GPL (>=3)
 Suggests:
     devtools
 Collate:
     'PoisMLE_Class.R'
+    'estimatePois.R'
     'logLik.R'
     'mle.R'
     'standardError.R'

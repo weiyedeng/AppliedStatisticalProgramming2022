@@ -10,6 +10,7 @@ setwd("/Users/rexdeng/Dropbox/mine/academics_career/WashU/Classes/202122Spring-S
 current.code <- as.package("PoisMLE")
 check(current.code)
 load_all(current.code)
+install(current.code)
 document(current.code)
 
 
@@ -17,6 +18,8 @@ document(current.code)
 ?logLik
 ?mle
 ?standardError
+?estimatePois
+### The plot function is built up in the class file
 
 
 ## Let's try it out
@@ -26,6 +29,8 @@ logLik(y,2)
 mle(y)
 standardError(y,"bootstrap", B=1000)
 standardError(y,"basic", B=1000)
+estimatePois_obj <- estimatePois(y, 2, "bootstrap")
+plot(estimatePois_obj)
 
 ## Not working
 y2 <- c(-1,2,3,4,5)

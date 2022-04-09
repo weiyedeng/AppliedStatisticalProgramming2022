@@ -1,13 +1,13 @@
 #' Calculate the Log Likelihood of Poisson Distribution
 #'
-#' Calculate the log likelihood of Poisson distribution
+#' Calculate the log likelihood of Poisson distribution based on observation data.
 #'
 #' @param y The vector of observed data.
 #' @param lambda The assumed value of \eqn{\lambda}.
 #'
 #' @return A numeric value indicating the log likelihood.
 #' @author Rex W. Deng <\email{weiye.deng@@wustl.edu}>
-#' @seealso mle, standardError, estimatePois
+#' @seealso \code{\link[PoisMLE]{mle}}, \code{\link[PoisMLE]{standardError}}, \code{\link[PoisMLE]{estimatePois}}
 #' @examples
 #' set.seed(123)
 #' y <- sample(x=1:10, size=20, replace=TRUE)

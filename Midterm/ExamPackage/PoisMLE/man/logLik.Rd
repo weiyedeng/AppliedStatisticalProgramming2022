@@ -15,7 +15,7 @@ logLik(y, lambda)
 A numeric value indicating the log likelihood.
 }
 \description{
-Calculate the log likelihood of Poisson distribution
+Calculate the log likelihood of Poisson distribution based on observation data.
 }
 \examples{
 set.seed(123)
@@ -23,7 +23,7 @@ y <- sample(x=1:10, size=20, replace=TRUE)
 logLik(y,2)
 }
 \seealso{
-mle, standardError, estimatePois
+\code{\link[PoisMLE]{mle}}, \code{\link[PoisMLE]{standardError}}, \code{\link[PoisMLE]{estimatePois}}
 }
 \author{
 Rex W. Deng <\email{weiye.deng@wustl.edu}>

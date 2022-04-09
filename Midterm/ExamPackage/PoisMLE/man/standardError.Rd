@@ -17,7 +17,7 @@ standardError(y, SEtype = c("basic", "bootstrap"), B = 100)
 A numeric value indicating the standard error.
 }
 \description{
-Calculate the standard rrror associated with the MLE estimator (Poisson)
+Calculate the standard rrror associated with the MLE estimator (Poisson) based on observation data.
 }
 \examples{
 set.seed(123)
@@ -25,7 +25,7 @@ y <- sample(x=1:10, size=20, replace=TRUE)
 standardError(y, SEtype = 'bootstrap')
 }
 \seealso{
-logLik, mle, estimatePois
+\code{\link[PoisMLE]{logLik}}, \code{\link[PoisMLE]{mle}}, \code{\link[PoisMLE]{estimatePois}}
 }
 \author{
 Rex W. Deng <\email{weiye.deng@wustl.edu}>

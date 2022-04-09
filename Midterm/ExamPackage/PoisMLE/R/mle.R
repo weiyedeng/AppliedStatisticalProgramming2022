@@ -1,12 +1,12 @@
 #' Calculate the MLE Estimator of Poisson Distribution
 #'
-#' Calculate the MLE estimator of Poisson distribution
+#' Calculate the MLE estimator of Poisson distribution based on observation data.
 #'
 #' @param y The vector of observed data.
 #'
 #' @return A numeric value indicating the MLE estimator.
 #' @author Rex W. Deng <\email{weiye.deng@@wustl.edu}>
-#' @seealso logLik, standardError, estimatePois
+#' @seealso \code{\link[PoisMLE]{logLik}}, \code{\link[PoisMLE]{standardError}}, \code{\link[PoisMLE]{estimatePois}}
 #' @examples
 #' set.seed(123)
 #' y <- sample(x=1:10, size=20, replace=TRUE)
