@@ -2,5 +2,7 @@
 
 export(logLik)
 export(mle)
+export(standardError)
 exportClasses(PoisMLE)
 import(methods)
+importFrom(stats,sd)

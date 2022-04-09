@@ -1,11 +1,11 @@
 #' Calculate the Log Likelihood of Poisson Distribution
 #'
-#' Calculate the Log Likelihood of Poisson Distribution
+#' Calculate the log likelihood of Poisson distribution
 #'
 #' @param y The vector of observed data.
 #' @param lambda The assumed value of \eqn{\lambda}.
 #'
-#' @return A numeric value indicating the log likelihood
+#' @return A numeric value indicating the log likelihood.
 #' @author Rex W. Deng <\email{weiye.deng@@wustl.edu}>
 #' @seealso mle, standardError, estimatePois
 #' @examples
@@ -24,8 +24,7 @@ setGeneric(name="logLik",
 
 setMethod(f="logLik",
           definition=function(y, lambda){
-            n <- length(y)
-            
+  
             ## Count data has to be >= 0; lambda has to be > 0
             if (any(y < 0)) {
               stop("Every value of y must be larger than or equal to 0.")
@@ -34,7 +33,8 @@ setMethod(f="logLik",
               stop("lambda must be larger than 0.")
             }
             
-            ## formula
+            ## MAIN CODES
+            n <- length(y)
             LL <- -n*lambda - sum(log(factorial(y))) + log(lambda)*sum(y)
             
             return(LL)

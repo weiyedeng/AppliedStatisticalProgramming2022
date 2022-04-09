@@ -2,7 +2,7 @@
 % Please edit documentation in R/mle.R
 \name{mle}
 \alias{mle}
-\title{Calculate the MLE estimator of Poisson Distribution}
+\title{Calculate the MLE Estimator of Poisson Distribution}
 \usage{
 mle(y)
 }
@@ -10,10 +10,10 @@ mle(y)
 \item{y}{The vector of observed data.}
 }
 \value{
-A numeric value indicating the MLE estimator
+A numeric value indicating the MLE estimator.
 }
 \description{
-Calculate the MLE estimator of Poisson Distribution
+Calculate the MLE estimator of Poisson distribution
 }
 \examples{
 set.seed(123)

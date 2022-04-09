@@ -12,10 +12,10 @@ logLik(y, lambda)
 \item{lambda}{The assumed value of \eqn{\lambda}.}
 }
 \value{
-A numeric value indicating the log likelihood
+A numeric value indicating the log likelihood.
 }
 \description{
-Calculate the Log Likelihood of Poisson Distribution
+Calculate the log likelihood of Poisson distribution
 }
 \examples{
 set.seed(123)

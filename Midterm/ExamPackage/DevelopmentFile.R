@@ -16,6 +16,7 @@ document(current.code)
 ## Let's look at a function
 ?logLik
 ?mle
+?standardError
 
 
 ## Let's try it out
@@ -23,9 +24,11 @@ set.seed(123)
 y <- sample(x=1:10, size=20, replace=TRUE)
 logLik(y,2)
 mle(y)
+standardError(y,"bootstrap", B=1000)
+standardError(y,"basic", B=1000)
 
 ## Not working
-y <- c(-1,2,3,4,5)
-logLik(y,2)
-mle(y)
+y2 <- c(-1,2,3,4,5)
+logLik(y2,2)
+mle(y2)
 

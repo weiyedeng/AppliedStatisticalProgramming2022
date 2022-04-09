@@ -1,10 +1,10 @@
-#' Calculate the MLE estimator of Poisson Distribution
+#' Calculate the MLE Estimator of Poisson Distribution
 #'
-#' Calculate the MLE estimator of Poisson Distribution
+#' Calculate the MLE estimator of Poisson distribution
 #'
 #' @param y The vector of observed data.
 #'
-#' @return A numeric value indicating the MLE estimator
+#' @return A numeric value indicating the MLE estimator.
 #' @author Rex W. Deng <\email{weiye.deng@@wustl.edu}>
 #' @seealso logLik, standardError, estimatePois
 #' @examples
@@ -24,7 +24,7 @@ setGeneric(name="mle",
 setMethod(f="mle",
           definition=function(y){
             ## mle equals to the mean of y
-            ## Count data has to be >= 0; lambda has to be > 0
+            ## Count data has to be >= 0
             if (any(y < 0)) {
               stop("Every value of y must be larger than or equal to 0.")
             }

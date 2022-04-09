@@ -11,7 +11,8 @@ Description: Calculate MLE quantities related to the Possion distribution.
 Depends:
     R (>= 3.0.0)
 Imports:
-    methods
+    methods,
+    stats
 License: GPL (>=3)
 Suggests:
     devtools
@@ -19,5 +20,6 @@ Collate:
     'PoisMLE_Class.R'
     'logLik.R'
     'mle.R'
+    'standardError.R'
 RoxygenNote: 7.1.2
 Encoding: UTF-8
