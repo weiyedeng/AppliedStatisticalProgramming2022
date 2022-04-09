@@ -37,7 +37,7 @@ setMethod(f="estimatePois",
             MLE <- mle(y)
             LL <- logLik(y, lambda)
             SE <- standardError(y, SEtype, B)
-            PoisMLE_obj <- new("PoisMLE", y=y, LL=LL, MLE=MLE, SE =SE, SEtype=SEtype)
+            PoisMLE_obj <- new("PoisMLE", y=y, LL=LL, MLE=MLE, SE=SE, SEtype=SEtype)
             return(PoisMLE_obj)
           }
 )

@@ -32,8 +32,10 @@ logLik(y,2)
 mle(y)
 standardError(y,"bootstrap", B=1000)
 standardError(y,"basic", B=1000)
-estimatePois_obj <- estimatePois(y, 2, "bootstrap")
-plot(estimatePois_obj)
+estimatePois_obj_boot <- estimatePois(y, 2, "bootstrap")
+estimatePois_obj_basic <- estimatePois(y, 2, "basic")
+plot(estimatePois_obj_boot)
+plot(estimatePois_obj_basic)
 
 ## Not working
 y2 <- c(-1,2,3,4,5)
