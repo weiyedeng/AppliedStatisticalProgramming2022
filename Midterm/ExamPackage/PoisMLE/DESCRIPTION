@@ -1,0 +1,23 @@
+Package: PoisMLE
+Title: PoisMLE
+Version: 0.1
+Authors@R: person(given = "Rex",
+           family = "Deng",
+           role = c("aut", "cre"),
+           email = "eweiye.deng@wustl.edu")
+Author: Rex Deng
+Maintainer: weiye.deng@wustl.edu <weiye.deng@wustl.edu>
+Description: Calculate MLE quantities related to the Possion distribution. 
+Depends:
+    R (>= 3.0.0)
+Imports:
+    methods
+License: GPL (>=3)
+Suggests:
+    devtools
+Collate:
+    'PoisMLE_Class.R'
+    'logLik.R'
+    'mle.R'
+RoxygenNote: 7.1.2
+Encoding: UTF-8
