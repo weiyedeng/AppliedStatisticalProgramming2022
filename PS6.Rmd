@@ -1,0 +1,74 @@
+---
+title: "Applied Statistical Programming - Spring 2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\begin{center}
+{\Large{\textbf{Problem Set 6}}} \\
+\vspace{4 bp}
+Due Friday, April 29, 11:59 PM \\
+\end{center}
+
+\section*{Instructions}
+\begin{enumerate}
+  \item Build the Rcpp package described below. Be sure to provide many comments in your code blocks to facilitate grading. Undocumented code will not be graded.
+  \item Work on git. Continue to work in the repository you forked from \url{https://github.com/johnsontr/AppliedStatisticalProgramming2022} and add your code for Problem Set 6. Commit and push frequently. Use meaningful commit messages because these will affect your grade.
+  \item You may work in teams, but each student should develop their own Rmarkdown file. To be clear, there should be no copy and paste. Each keystroke in the assignment should be your own.
+\end{enumerate}
+
+
+\section*{The Expectation-Maximization Algorithm}
+
+The goal is to implement an ensemble of models. You will combine forecasts of US presidential elections using ensemble Bayesian model averaging (EBMA). To do this, you must decide how to weight each component of the forecast in the prediction. The collection of these weighted forecasts form the ensemble, and you will use something called the EM (expectation-maximization) algorithm to make estimates.
+
+The task is to choose values $w_k$ that maximize the following equation:
+
+\begin{equation}
+   p(y \vert f_1^{s \vert t^{\star}}, ..., f_K^{s \vert t^{\star}}) = \sum\limits^N_{k=1} w_k N(f_k^{t^{\star}}, \sigma^{2})
+\end{equation}
+
+Assume that the parameter $\sigma^{2}$ is known and that $\sigma^{2} = 1$. 
+
+The first step of the EM algorithm is to estimate the latent quantity $\hat{z}^t_k$ that represents the probability that observation $t$ was best predicted by model $k$.
+
+\begin{equation}
+   \hat{z}_k^{(j+1)t} = \frac{\hat{w}_k^{(j)} N(y^t \vert f_k^t, 1)}{\sum\limits^N_{k=1} \hat{w}_k^{(j)} N(y^t \vert f_k^t, 1)}
+\end{equation}
+
+In this equation, $j$ is the particular iteration of the EM algorithm, and $N(y^t \vert f_k^t, 1)$ is the normal cumulative distribution function evaluated at the observed election outcome (The Rcpp equivalent to \texttt{dnorm(y, ftk, 1)}).
+
+The second step of the EM algorithm is to estimate the expected value of the weights assuming that all $\hat{z}^{t}_{k}$ are correct.
+
+\begin{equation}
+   \hat{w}^{(j+1)}_k = \frac{1}{n} \sum_t \hat{z}_k^{(j+1)t}
+\end{equation}
+
+\newpage
+
+The estimation procedure is as follows:
+\begin{enumerate}
+   \item Start with the assumption that all models are weighted equally.
+   \item Calculate $\hat{z}_k^{(j+1)t}$ for each model for each election.
+   \item Calculate $\hat{w}_k^{(j+1)}$ for each model.
+   \item Repeat steps 2-3 until convergence to a pre-defined tolerance of your choosing.
+\end{enumerate}
+
+
+\section*{The Assignment}
+
+\begin{enumerate}
+   \item Write an Rcpp function that will calculate the answer to Equation (2). The output will be a matrix.
+   \item Write an Rcpp function that will calculate the answer to Equation (3). The output will be a vector.
+   \item Write an Rcpp function that will complete the entire algorithm.
+   \item Include one unit test per function. 
+   \item Assemble the code as an R package.
+   \item Write a development .R file that demonstrates the package's use.
+\end{enumerate}
+
+
+
+
