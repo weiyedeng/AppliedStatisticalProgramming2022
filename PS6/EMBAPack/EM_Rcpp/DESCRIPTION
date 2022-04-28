@@ -1,0 +1,20 @@
+Package: EMPack
+Title: EMPack
+Version: 0.1
+Authors@R: 
+Author: Rex Deng
+Maintainer: weiye.deng@wustl.edu <weiye.deng@wustl.edu>
+Description: Use EM algorithm to estimate weights for forcast models
+Depends:
+    R (>= 3.0.0)
+License: FALSE
+Suggests:
+    devtools
+Collate:
+    'integrateIt.R'
+    'integrate_Class.R'
+    'show_Simpson.R'
+    'show_Trapezoid.R'
+    'tolTest.R'
+RoxygenNote: 7.1.2
+Encoding: UTF-8
