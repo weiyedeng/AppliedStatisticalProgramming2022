@@ -4,7 +4,7 @@ Version: 0.1
 Authors@R: person(given = "Rex",
            family = "Deng",
            role = c("aut", "cre"),
-           email = "eweiye.deng@wustl.edu")
+           email = "weiye.deng@wustl.edu")
 Author: Rex Deng
 Maintainer: weiye.deng@wustl.edu <weiye.deng@wustl.edu>
 Description: Calculate MLE quantities related to the Possion distribution. 

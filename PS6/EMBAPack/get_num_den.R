@@ -1,27 +1,25 @@
-#' Weight estimation by EM algorithm for forecast models
+#' Calculate the Weighted Density for Observed Outcomes and the Sum of Weighed Density for Each Model.
 #'
-#' Apply EM algorithm to estimate weights for each forecast model by maximizing the probability of observing the election outcomes
+#' Calculate the weighted density for observed outcomes (the numerator matrix in step 2) and the sum of weighted density for each model (the denominator vector). 
 #'
 #' @param y A numeric vector that indicates observed election outcomes.
 #' @param ftk A numeric vector that indicates the mean of the forecast models. The models are assumed to follow a normal distribution.
 #' @param sd A value that indicates the standard deviation of the forecast models. In this function, it is assumed to be 1 and remains consistent across the models. 
 #' @param weights A numeric vector that indicates the initial weights assigned to the forecast models. 
-#' @param threshold A numeric value that indicates the 
 #'
 #' @return A list with the elements
 #'  \item{numerator_matrix}{The weighted probability of each election outcome.}
 #'  \item{denominator_vector}{The final probability of observing each election outcome.} 
-#'  \item{iterations}{Number of iterations the EM algorithms go through to update the weights.}
 #' @author Rex W. Deng <\email{weiye.deng@@wustl.edu}>
-#' @note Weight estimation by EM algorithm for forecast models
+#' @note Refer to the equation in Step 2. 
 #' @examples
 #' y <- c(0.1,0.2,0.5)
 #' ftk <- seq(0,1,0.1)
 #' sd <- 1
 #' weights <- rep(1/length(ftk), length(ftk)) ## Intially assign equal weight to each model
-#' est_finalWeights(y=y, ftk=ftk, weights=weights, sd=1, threshold=0.0001)
+#' get_num_den(y=y, ftk=ftk, weights=weights, sd=1)
 #' 
-#' @rdname est_finalWeights
+#' @rdname get_num_den
 #' @export
 setGeneric(name="get_num_den",
            def=function(y, ftk, sd, weights)
@@ -29,6 +27,8 @@ setGeneric(name="get_num_den",
 )
 
 #' @export
+library(Rcpp)
+
 cppFunction('List get_num_den(NumericVector y, NumericVector ftk, double sd, NumericVector weights) {
   int n = y.size();
   int m = ftk.size();
@@ -51,7 +51,6 @@ cppFunction('List get_num_den(NumericVector y, NumericVector ftk, double sd, Num
   List L=List::create(Named("numerator_matrix")=num_mat, Named("denominator_vector")=den_vec);
   return L;
 }')
-
 
 
 setMethod(f="get_num_den",

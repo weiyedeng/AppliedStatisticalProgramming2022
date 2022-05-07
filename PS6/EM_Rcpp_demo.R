@@ -31,7 +31,7 @@ cppFunction('NumericMatrix est_ztk(NumericVector y, NumericVector ftk, double sd
   NumericMatrix ztk_mat(n, m, v.begin());
   Function get_num_den("get_num_den");
   
-  List L = get_num_den(y, ftk, weights, sd);
+  List L = get_num_den(y, ftk, sd, weights);
   NumericMatrix num_mat = L[0];
   NumericVector den_vec = L[1];
   
@@ -52,11 +52,11 @@ cppFunction('List est_finalWeights(NumericVector y, NumericVector ftk, double sd
   Function est_ztk("est_ztk");   
   Function update_weights("update_weights");
   
-  List L = get_num_den(y, ftk, weights, sd);
+  List L = get_num_den(y, ftk, sd, weights);
   NumericVector den_vec = L[1];
   
-  NumericVector new_weights = update_weights(est_ztk(y, ftk, weights, sd));
-  List new_L = get_num_den(y, ftk, new_weights, sd);
+  NumericVector new_weights = update_weights(est_ztk(y, ftk, sd, weights));
+  List new_L = get_num_den(y, ftk, sd, new_weights);
   NumericVector new_den_vec = new_L[1];
   
   NumericVector diff_den_vec = abs(new_den_vec - den_vec);
@@ -65,8 +65,8 @@ cppFunction('List est_finalWeights(NumericVector y, NumericVector ftk, double sd
   
   while(is_true(any(diff_den_vec >= threshold_vec))) { // if the diff is larger than the threshold
     den_vec = new_den_vec; // replace the den_vec from last iteration to the current iteration
-    new_weights = update_weights(est_ztk(y, ftk, new_weights, sd)); // similarly, replace the new_weights
-    new_L = get_num_den(y, ftk, new_weights, sd); // similarly, replace the new_L by inputting the new_weights
+    new_weights = update_weights(est_ztk(y, ftk, sd, new_weights)); // similarly, replace the new_weights
+    new_L = get_num_den(y, ftk, sd, new_weights); // similarly, replace the new_L by inputting the new_weights
     new_den_vec = new_L[1]; // Extract the next iteration of den_vec
     diff_den_vec = abs(new_den_vec - den_vec); // Extract the new diff_den_vec
     iter++;
@@ -87,8 +87,8 @@ get_num_den(y=y, ftk=ftk, weights=weights, sd=1)
 est_ztk(y=y, ftk=ftk, weights=weights, sd=1)
 
 new_weights <- update_weights(est_ztk(y=y, ftk=ftk, sd=1, weights=weights))
-new_weights <- update_weights(est_ztk(y=y, ftk=ftk, sd=1, weights=new_weights))
+new_weights
 get_num_den(y=y, ftk=ftk, sd=1, weights=new_weights)
 
 sum(new_weights)
-est_finalWeights(y=y, ftk=ftk, weights=weights, sd=1, threshold=0.0001)
+est_finalWeights(y=y, ftk=ftk, weights=weights, sd=1, threshold=0.00001)
